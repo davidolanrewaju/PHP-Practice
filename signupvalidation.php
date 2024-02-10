@@ -1,19 +1,14 @@
 <?php
-$email = $_POST['email'];
-$password = $_POST['password'];
-
-//Connect to phpmyadmin database
-$connection = mysqli_connect('localhost', 'root', '', 'loginapp');
-if ($connection) {
-    echo 'DB Connection successful <br>';
-} else {
-    die("DB Connection Failed <br>");
-}
+include("middleware/db.php");
 
 //Add email and password to database from form
 if (isset($_POST['submit'])) {
     if ($email && $password !== null) {
         if (strlen($password) >= 6) {
+            //Encypt user password
+            $salt = "$2y$10$" . "cvmrtmpdapaqpqsm2359mfwmxwdentnmh";
+            $password = crypt($password, $salt);
+
             $post_query = "INSERT INTO users(email, password) VALUES ('$email', '$password')";
             $posted_data = mysqli_query($connection, $post_query);
 
@@ -40,7 +35,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    
+
 </body>
 
 </html>

@@ -1,14 +1,5 @@
 <?php
-$email = $_POST['email'];
-$password = $_POST['password'];
-
-//Connect to phpmyadmin database
-$connection = mysqli_connect('localhost', 'root', '', 'loginapp');
-if ($connection) {
-    echo 'DB Connection successful <br>';
-} else {
-    die("DB Connection Failed <br>");
-}
+include("middleware/db.php");
 
 //Verify email and password before login
 if (isset($_POST['submit'])) {
